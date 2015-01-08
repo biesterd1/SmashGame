@@ -1,2 +1,0 @@
-# SmashGame
-Dan and Steve
