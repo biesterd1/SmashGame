@@ -7,6 +7,7 @@ namespace CompleteProject {
 	{
 		Text text;
 		public static GameObject self;
+		float timer = 0;
 
 
 		// Use this for initialization
@@ -19,6 +20,8 @@ namespace CompleteProject {
 		// Update is called once per frame
 		void Update ()
 		{
+			timer += Time.deltaTime;
+			text.text = "" + PlayerControl.moveToAttacker;
 //			text.text = "v = " + PlayerControl.v + ",  h = " + PlayerControl.h + "\nKinematic = " + PlayerControl.kinematic + ", Timer = " + PlayerControl.timer1
 //				 + "\nSpeed = " + PlayerControl.xSpeed + "\nMax Speed = " + PlayerControl.maxSpeed2 + 
 //					"\nParent = " + Hitbox.parent + "Target = " + Hitbox.target + "\nStaggered = " + PlayerControl.staggered;

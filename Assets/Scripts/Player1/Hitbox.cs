@@ -17,13 +17,12 @@ public class Hitbox : MonoBehaviour {
 	public float xForce;
 	public float yForce;
 	public float damage;
+	public float attackMultiplier = 1;
 	public float selfXForce;
 	public float selfYForce;
-	public float attackResetTime;
-	public int attackDirection = 1;
-
-	public static float attackTimer;
-
+	public float attackDirection = 1;
+	public bool first = false;
+	Vector2 playerPosition;
 
 	// Use this for initialization. On enable runs everytime the gameobject is turned on (in animation)
 	void OnEnable () {
@@ -53,19 +52,19 @@ public class Hitbox : MonoBehaviour {
 			selfXForce *= -1;
 		}
 		Debug.Log("Self for hitbox is " + self);
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		attackTimer += Time.deltaTime;
+		playerPosition = new Vector2(player.rigidbody2D.position.x, player.rigidbody2D.position.y);
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		// Checks if target is a player, and not self
 		// sets target variable to target and starts Damage function
 		targett = other;
-		if (other.gameObject.tag == "Player" && other.gameObject != selfTransform /*&& attackTimer >= attackResetTime*/) {
-			attackTimer = 0;
+		if (other.gameObject.tag == "Player" && other.gameObject != selfTransform /*&& attackTimer >= attackResetTime*/) {		
 			targetInstance = targett.transform;
 			target = targetInstance.gameObject;
 			hitTarget = target.GetComponent<PlayerControl>();
@@ -84,7 +83,7 @@ public class Hitbox : MonoBehaviour {
 
 	
 		//targetInstance.rigidbody2D.AddForce (fly);
-		hitTarget.OnHit(xForce, yForce, damage, attackDirection);
+		hitTarget.OnHit(xForce, yForce, damage, attackDirection, playerPosition, first, attackMultiplier);
 		
 
 	}

@@ -8,6 +8,7 @@ public class PlayerControl : MonoBehaviour
 
 	public enum Player {Player0 = 0, Player1 = 1, Player2 = 2, Player3 = 3, Player4 = 4};
 
+	public float moveToAttackerCoeff = 10;
 	public Player player;
 
 	//int i = 0;
@@ -52,6 +53,7 @@ public class PlayerControl : MonoBehaviour
 	// Static variables, used for debugging. Static not currently needed.
 	public static float timer1 = 0;
 	public static float timer2 = 0;
+	public static float timer3 = 0;
 	public static float grabTimer = 0;
 	
 	
@@ -78,11 +80,15 @@ public class PlayerControl : MonoBehaviour
 	public float groundFriction;
 	public float airFriction;
 	public float speedBuffer = 1f;
+	public static float moveToAttacker;
 
 	// Controls
 	string jumpKey, attackKey, grabKey, verticalKey, horizontalKey; 
 
 	float distanceToGround;
+
+	Vector2 playerPosition;
+
 
 
 	//public static GameObject player;
@@ -158,6 +164,9 @@ public class PlayerControl : MonoBehaviour
 	
 	
 	void Update() {
+		timer3 += Time.deltaTime;
+
+
 		// Read the jump input in Update so button presses aren't missed.
 		//Button vert = 
 		v = Input.GetAxis (verticalKey);
@@ -366,14 +375,25 @@ public class PlayerControl : MonoBehaviour
 
 	}
 
-	public void OnHit(float xForce, float yForce, float damage, int attackDirection) {
-		Vector2 fly = new Vector2 (xForce * attackDirection, yForce);
-		rigidbody2D.AddForce (fly);
+	public void OnHit(float xForce, float yForce, float damage, float attackDirection, Vector2 attackerPosition, bool first, float multiplier) {
+		moveToAttacker = attackerPosition.x - playerPosition.x;
+		Vector2 fly;
+		// sets velocity of player being hit to zero to remove momentum (may change)
+
+		rigidbody2D.velocity = new Vector2(0,0);
+
+		if (first == true) {
+			fly = new Vector2(xForce * attackDirection * moveToAttacker * 3 * multiplier, yForce);
+		}
+		else {
+			fly = new Vector2 (xForce * attackDirection * multiplier, yForce*multiplier);
+		}
+		rigidbody2D.AddForce(fly);
+
 	}
 	
 	void FixedUpdate() {
-
-		
+		playerPosition = new Vector2(rigidbody2D.position.x, rigidbody2D.position.y);
 	}
 
 	void Flip ()
