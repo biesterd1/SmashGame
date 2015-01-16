@@ -152,19 +152,15 @@ public class PlayerControl : MonoBehaviour
 	}
 	
 	// Collision checks
-	void OnCollisionEnter2D(Collision2D coll) {
-		
-		if (coll.gameObject.tag == "Boundary") {						// if Player hits boundary, trigger respawn
-			Debug.Log ("Hit boundary");	
-			Spawn ();
-			
-		}
-	}
+
 	
 	
 	
 	void Update() {
-		timer3 += Time.deltaTime;
+		// Use this clamp function, but only have it true when running or moving. 
+		// Keeps value in a range
+		// Do not want it to be active if the player is attacked
+		// rigidbody2D.velocity.x = Mathf.Clamp(rigidbody2D.velocity.x, -maxSpeed, maxSpeed);
 
 
 		// Read the jump input in Update so button presses aren't missed.
@@ -203,6 +199,8 @@ public class PlayerControl : MonoBehaviour
 		if (time1Start == true) {
 			timer1 += Time.deltaTime;
 		}
+		timer3 += Time.deltaTime;
+
 //		if (time2Start == true) {
 //			timer2 += Time.deltaTime;	
 //		}
@@ -219,47 +217,6 @@ public class PlayerControl : MonoBehaviour
 			spawning = false;
 			
 		}
-		//////////////////////////////////////////////////////////////////////////////////////
-		//
-		// Reduce horizontal speed in air and max speed
-		// Also reduces speed while attacking. 
-		// Change "airborne" and "attacking" in Animation window to trigger friction. Friction values can also be adjusted here.
-		// Negative values for friction may speed character up. Should. Large number!
-		// ******************************************
-//		if (staggered) {
-//			Staggered();
-//			maxSpeed = storeMaxSpeed;
-//			rigidbody2D.angularDrag = 2;
-//			rigidbody2D.drag = 2;
-//			//rigidbody2D.velocity = new Vector2(flySpeed,rigidbody2D.velocity.y);
-//			//flySpeed = flySpeed - flyDecay;
-//		}
-//		else if (attacking) {
-//			if (maxSpeed >= attackFriction) {
-//				maxSpeed = Mathf.Abs(rigidbody2D.velocity.x);
-//				if (triggerAttackFriction == true) {
-//					maxSpeed = Mathf.Abs(rigidbody2D.velocity.x) - attackFriction;
-//				}
-//			}
-//			else {
-//				maxSpeed = 0;
-//			}
-//		} 
-//		else {
-//			if (airborne) {
-//				if (maxSpeed >= maxAirSpeed) {
-//					maxSpeed = maxSpeed - airFriction;
-//				}
-//			}	
-//			else {
-//				maxSpeed = storeMaxSpeed;
-//			}
-//		}
-//		if (attacking && maxSpeed <= attackFriction) {				// prevents player from slowly moving backwards while attacking standing still
-//			maxSpeed = 0;	
-//		}
-		
-		////////////////////////////////////////////////////////////////////////////////////////////
 		
 		anim.SetBool ("Up", up);
 		anim.SetBool ("Attack", attack);
@@ -345,18 +302,13 @@ public class PlayerControl : MonoBehaviour
 		anim.SetFloat("hSpeed", Mathf.Abs(h));
 
 
+		// Player movement (h is horizontal axis of control)
 		run = Mathf.Abs(h * acceleration * Time.deltaTime);
-	
-
-
 		if (hRaw!=0 && xSpeed <= maxSpeed*Mathf.Abs(h)) {
 			rigidbody2D.AddForce(new Vector2 (run*direction, 0f));
 		}
 
-		/*if (xSpeed > maxSpeed) {
-			rigidbody2D.velocity = new Vector2 (maxSpeed*direction,rigidbody2D.velocity.y);	
-		}*/
-
+		// Introduces drag when the player is in the air
 		if (grounded) {
 			rigidbody2D.drag = 	0;
 		}
