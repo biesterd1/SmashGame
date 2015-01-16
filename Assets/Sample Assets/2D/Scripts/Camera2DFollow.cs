@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Camera2DFollow : MonoBehaviour {
 	
-	public Transform target;
+	public Transform player;
+	public Transform nothing;
+	Transform target;
 	public float damping = 1;
 	public float lookAheadFactor = 3;
 	public float lookAheadReturnSpeed = 0.5f;
@@ -16,14 +18,20 @@ public class Camera2DFollow : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		lastTargetPosition = target.position;
-		offsetZ = (transform.position - target.position).z;
+		lastTargetPosition = player.position;
+		offsetZ = (transform.position - player.position).z;
 		transform.parent = null;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (player == null) {
+			target = nothing;
+		}
+		else {
+			target = player;
+		}
+		//target = player;
 		// only update lookahead pos if accelerating or changed direction
 		float xMoveDelta = (target.position - lastTargetPosition).x;
 
