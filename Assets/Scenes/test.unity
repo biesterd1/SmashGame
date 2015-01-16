@@ -256,7 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d8238cc53530b64fbb7828c3d3bb591, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 1304434843}
+  player: {fileID: 1304434843}
+  nothing: {fileID: 1321849093}
   damping: .300000012
   lookAheadFactor: 3
   lookAheadReturnSpeed: .5
@@ -1235,6 +1236,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ac28c77c550d2ad4bacac19a24ea4b95, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac28c77c550d2ad4bacac19a24ea4b95, type: 2}
   m_RootGameObject: {fileID: 1186570881}
@@ -1974,6 +1979,7 @@ GameObject:
   - 114: {fileID: 1304434846}
   - 61: {fileID: 1304434845}
   - 212: {fileID: 1304434844}
+  - 114: {fileID: 1304434848}
   m_Layer: 8
   m_Name: Player1
   m_TagString: Player
@@ -2089,6 +2095,17 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!114 &1304434848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1304434842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebcc257cf9af724db8f26d1453075ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1304434849
 Animator:
   serializedVersion: 3
