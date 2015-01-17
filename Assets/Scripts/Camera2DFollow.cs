@@ -28,7 +28,11 @@ public class Camera2DFollow : MonoBehaviour {
 
 	void FindPlayer(){
 		if (timeToSearch <= Time.time) {
-			GameObject.FindGameObjectWithTag("Player1")
+			GameObject searchResult = GameObject.FindGameObjectWithTag("Player");
+			if (searchResult != null) {
+				target = searchResult.transform;
+			}
+			timeToSearch = Time.time + 0.5f;
 		}
 	}
 

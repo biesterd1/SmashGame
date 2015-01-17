@@ -382,6 +382,8 @@ public class PlayerControl : MonoBehaviour
 		
 	}
 
+
+
 	// Coroutines, don't know how they work yet. 
 //	IEnumerator SpawnProtection() {
 //		Debug.Log("coroutine");
