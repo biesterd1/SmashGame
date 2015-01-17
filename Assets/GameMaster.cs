@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameMaster : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class GameMaster : MonoBehaviour {
 	public static Transform[] spawns;				// Set spawn locations. Array for multiple possibilities
 	public static Transform spawn;
 	public static GameObject[] spawnObjects;
+	public static GameObject[] playerObjectsTemp;
 	static int spawnIndex;
 	public int spawnTimer = 2;
 
@@ -15,6 +17,8 @@ public class GameMaster : MonoBehaviour {
 	public Transform playerPrefab;
 	public Transform[] players;
 	public Transform[] spawnPoints;
+
+	List<GameObject> playerObjects = new List<GameObject>();
 
 	bool[] playersAlive;
 
@@ -25,6 +29,20 @@ public class GameMaster : MonoBehaviour {
 //		}
 		if (gm == null) {
 			gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+		}
+
+		// Populates array of player objects
+		playerObjectsTemp = GameObject.FindGameObjectsWithTag("Player");
+
+		// Orders the player objects in a playerObjects List
+		for (int i=0;i<numberOfPlayers;i++) {
+			for (int j=0;j<numberOfPlayers;j++) {
+				int index = (int)playerObjectsTemp[j].GetComponent<PlayerControl>().player;
+				if (index == i+1) {
+					playerObjects.Add(playerObjectsTemp[i]);
+				}
+			}
+
 		}
 
 		// Allows players to move through each other
@@ -38,20 +56,39 @@ public class GameMaster : MonoBehaviour {
 //		for (int i=0;i<spawnObjects.Length;i++) {
 //			spawns[i] = spawnObjects[i].transform;
 //		}
+		for (int i = 0; i<numberOfPlayers ; i++){
+			playerObjects[i].SetActive (false);
+		}
+		gm.StartCoroutine(gm.RespawnAll());
 	}
+
+
 	
 	// Update is called once per frame
 	void Update () {
 
 	}
 
-	public static void KillPlayer(Player player, GameObject playerObject) {
+	public static void KillPlayer(Player player) {
 		//Destroy(player.gameObject);
 		player.gameObject.SetActive(false);
 		//gm.SpawnPlayer(player, playerObject);
 		gm.StartCoroutine(gm.RespawnPlayer(player));
+	
+	}
 
+	public static void KillPlayer1 (){
 
+	}
+
+	public IEnumerator RespawnAll () {
+		yield return new WaitForSeconds(spawnTimer);
+		for (int i = 0; i < numberOfPlayers; i++){
+			if (playerObjects[i].activeSelf == false){
+				playerObjects[i].SetActive (true);
+				playerObjects[i].transform.position = spawnPoints[i].position;
+			}
+		}
 	}
 
 	public IEnumerator RespawnPlayer(Player player) {

@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11449218}
   m_Layer: 0
   m_Name: GameMaster
-  m_TagString: GameController
+  m_TagString: GM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39,6 +39,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1305c9b4dc3768743a8695ef650b70de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnTimer: 2
+  playerPrefab: {fileID: 0}
+  players:
+  - {fileID: 0}
+  - {fileID: 435894, guid: 3ce7d9c63939b344087f7d0181ebc74c, type: 2}
+  - {fileID: 400004, guid: a9bca8ba614783e439ce9f9cc8891007, type: 2}
+  spawnPoints:
+  - {fileID: 400000, guid: aa5ca1d2e99769d4980dc21c162313cc, type: 2}
+  - {fileID: 400000, guid: ac28c77c550d2ad4bacac19a24ea4b95, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

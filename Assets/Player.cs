@@ -2,9 +2,8 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	static Player player;
-	static GameObject playerObject;
-	static Transform playerPrefab;
+	Player player;
+	Transform playerPrefab;
 
 
 	public class PlayerStats {
@@ -13,9 +12,6 @@ public class Player : MonoBehaviour {
 
 	void Start() {
 		player = this;
-		playerObject = player.gameObject;
-		//GameMaster.RespawnPlayer();
-		
 	}
 
 	public PlayerStats playerStats = new PlayerStats();
@@ -27,21 +23,13 @@ public class Player : MonoBehaviour {
 		// if Player hits boundary, trigger respawn
 		if (coll.gameObject.tag == "Boundary") {	
 			Debug.Log ("Hit boundary");	
-			GameMaster.KillPlayer (player, playerObject);
-			
+			GameMaster.KillPlayer (player);			
 		}
 	}
 	public void DamagePlayer (int damage) {
-		playerStats.health -= damage;
+		playerStats.health += damage;
 		if (playerStats.health >= 200) {
-			GameMaster.KillPlayer(player, playerObject);
+			GameMaster.KillPlayer(player);
 		}
 	}
-
-//	void OnDestroy() {
-//		Debug.Log("Destroyed " + player)
-//		
-//	}
-
-
 }
