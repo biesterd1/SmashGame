@@ -5,7 +5,7 @@ Dan and Steve
 Early stages of smash bros-type 2D multiplayer arena brawler.
 Still working on the basic mechanics of hitboxes and movement.
 
-Added death particle system. Needs to be tweaked. Only works in one direction (up), will need to factor in side boundaries and top boundaries. Currently only works correctly if player hits bottom boundary
+Added death particle system. Needs to be tweaked. Only works in one direction (up), will need to factor in side boundaries and top boundaries. Currently only works correctly if player hits bottom boundary. Need to code in destory function so particle object does not remain
 
 Spawning is now fully working.
 
