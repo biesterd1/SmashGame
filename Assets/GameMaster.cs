@@ -12,6 +12,7 @@ public class GameMaster : MonoBehaviour {
 	static int spawnIndex;
 	public float spawnTimer = 1;
 	public Transform spawnPrefab;
+	public Transform deathParticlePrefab;
 
 	public static GameMaster gm;
 
@@ -65,6 +66,7 @@ public class GameMaster : MonoBehaviour {
 
 	public static void KillPlayer(Player player) {
 		//Destroy(player.gameObject);
+		gm.DeathParticle(player);
 		player.gameObject.SetActive(false);
 		//gm.SpawnPlayer(player, playerObject);
 		gm.StartCoroutine(gm.RespawnPlayer(player));
@@ -73,6 +75,10 @@ public class GameMaster : MonoBehaviour {
 
 	public static void KillPlayer1 (){
 
+	}
+
+	public void DeathParticle(Player player) {
+		GameObject deathParticle = Instantiate (deathParticlePrefab, player.transform.position, deathParticlePrefab.rotation) as GameObject;
 	}
 
 
