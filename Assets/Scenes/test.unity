@@ -1787,6 +1787,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11449218, guid: b0887aa761a71e442b6fd585709e1a4f, type: 2}
+      propertyPath: spawnPrefab
+      value: 
+      objectReference: {fileID: 401438, guid: ce6876e1c0b327944a31dec5b72fdcea, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0887aa761a71e442b6fd585709e1a4f, type: 2}
   m_RootGameObject: {fileID: 1321849091}
@@ -2299,6 +2303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTimer: 2
+  spawnPrefab: {fileID: 401438, guid: ce6876e1c0b327944a31dec5b72fdcea, type: 2}
   playerPrefab: {fileID: 0}
   players:
   - {fileID: 0}

@@ -10,7 +10,8 @@ public class GameMaster : MonoBehaviour {
 	public static GameObject[] spawnObjects;
 	public static GameObject[] playerObjectsTemp;
 	static int spawnIndex;
-	public int spawnTimer = 2;
+	public float spawnTimer = 1;
+	public Transform spawnPrefab;
 
 	public static GameMaster gm;
 
@@ -48,14 +49,7 @@ public class GameMaster : MonoBehaviour {
 		// Allows players to move through each other
 		Physics2D.IgnoreLayerCollision(8, 8, true);
 
-		// Should spawn all players in respective spawn points
-		//gm.StartCoroutine(gm.RespawnPlayer(player));
 
-//		spawnIndex = 0;
-//		spawnObjects = GameObject.FindGameObjectsWithTag("Spawn");
-//		for (int i=0;i<spawnObjects.Length;i++) {
-//			spawns[i] = spawnObjects[i].transform;
-//		}
 		for (int i = 0; i<numberOfPlayers ; i++){
 			playerObjects[i].SetActive (false);
 		}
@@ -81,32 +75,30 @@ public class GameMaster : MonoBehaviour {
 
 	}
 
+
+
 	public IEnumerator RespawnAll () {
 		yield return new WaitForSeconds(spawnTimer);
 		for (int i = 0; i < numberOfPlayers; i++){
 			if (playerObjects[i].activeSelf == false){
 				playerObjects[i].SetActive (true);
 				playerObjects[i].transform.position = spawnPoints[i].position;
+				GameObject spawnParticle = Instantiate (spawnPrefab, spawnPoints[i].position, spawnPoints[i].rotation) as GameObject;
+				Destroy (spawnParticle, 3f);
 			}
 		}
 	}
 
 	public IEnumerator RespawnPlayer(Player player) {
-
+		// Will play audio attached to game object
+		// audio.Play ();
 
 		yield return new WaitForSeconds(spawnTimer);
 
 		player.gameObject.SetActive (true);
 		player.gameObject.transform.position = spawnPoints[1].position;
-
-//		for (int i = 0; i < players.Length; i++){
-//			bool active = players[i].gameObject.activeSelf;
-//			if (active == false){
-//			
-//				Debug.Log("Spawn!");
-//			}
-//			Debug.Log (players[i].gameObject);
-//		}
+		GameObject spawnParticle = Instantiate (spawnPrefab, spawnPoints[1].position, spawnPoints[1].rotation) as GameObject;
+		Destroy (spawnParticle, 3f);
 
 	}
 
