@@ -8,19 +8,15 @@ public class GameMaster : MonoBehaviour {
 	public static Transform[] spawns;				// Set spawn locations. Array for multiple possibilities
 	public static Transform spawn;
 	public static GameObject[] spawnObjects;
-	public static GameObject[] playerObjectsTemp;
+
 	static int spawnIndex;
 	public float spawnTimer = 1;
 	public Transform spawnPrefab;
 	public Transform deathParticlePrefab;
-
 	public static GameMaster gm;
-
-	public Transform playerPrefab;
-	public Transform[] players;
 	public Transform[] spawnPoints;
-
-	List<GameObject> playerObjects = new List<GameObject>();
+	public GameObject[] playerObjectsTemp;
+	public List<GameObject> playerObjects = new List<GameObject>();
 
 	bool[] playersAlive;
 
@@ -35,7 +31,9 @@ public class GameMaster : MonoBehaviour {
 
 		// Populates array of player objects
 		playerObjectsTemp = GameObject.FindGameObjectsWithTag("Player");
-
+		Debug.Log(playerObjectsTemp[0]);
+		Debug.Log (playerObjectsTemp[1]);
+		Debug.Log (playerObjectsTemp.Length);
 		// Orders the player objects in a playerObjects List
 		for (int i=0;i<numberOfPlayers;i++) {
 			for (int j=0;j<numberOfPlayers;j++) {
@@ -79,6 +77,7 @@ public class GameMaster : MonoBehaviour {
 
 	public void DeathParticle(Player player) {
 		GameObject deathParticle = Instantiate (deathParticlePrefab, player.transform.position, deathParticlePrefab.rotation) as GameObject;
+		Destroy (deathParticle, 1f);
 	}
 
 
@@ -87,10 +86,10 @@ public class GameMaster : MonoBehaviour {
 		yield return new WaitForSeconds(spawnTimer);
 		for (int i = 0; i < numberOfPlayers; i++){
 			if (playerObjects[i].activeSelf == false){
-				playerObjects[i].SetActive (true);
 				playerObjects[i].transform.position = spawnPoints[i].position;
-				GameObject spawnParticle = Instantiate (spawnPrefab, spawnPoints[i].position, spawnPoints[i].rotation) as GameObject;
-				Destroy (spawnParticle, 3f);
+				playerObjects[i].SetActive (true);
+				//GameObject spawnParticle = Instantiate (spawnPrefab, spawnPoints[i].position, spawnPoints[i].rotation) as GameObject;
+				//Destroy (spawnParticle, 3f);
 			}
 		}
 	}
@@ -99,12 +98,13 @@ public class GameMaster : MonoBehaviour {
 		// Will play audio attached to game object
 		// audio.Play ();
 
+		// Players now spawn in their own locations. Eventually want to work it so they spawn in central location, but offset if someone is already there
+		int index = (int)player.GetComponent<PlayerControl>().player;
 		yield return new WaitForSeconds(spawnTimer);
-
+		player.gameObject.transform.position = spawnPoints[index-1].position;
 		player.gameObject.SetActive (true);
-		player.gameObject.transform.position = spawnPoints[1].position;
-		GameObject spawnParticle = Instantiate (spawnPrefab, spawnPoints[1].position, spawnPoints[1].rotation) as GameObject;
-		Destroy (spawnParticle, 3f);
+		//GameObject spawnParticle = Instantiate (spawnPrefab, spawnPoints[1].position, spawnPoints[1].rotation) as GameObject;
+		//Destroy (spawnParticle, 3f);
 
 	}
 

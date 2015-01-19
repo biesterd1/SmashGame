@@ -53,6 +53,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &102808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 402808}
+  m_Layer: 8
+  m_Name: GroundCheck
+  m_TagString: GroundCheck
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -89,8 +104,21 @@ Transform:
   m_Children:
   - {fileID: 400002}
   - {fileID: 400000}
+  - {fileID: 402808}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &402808
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 102808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -.824999988, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400004}
+  m_RootOrder: 2
 --- !u!50 &5000000
 Rigidbody2D:
   m_ObjectHideFlags: 1
@@ -170,10 +198,10 @@ MonoBehaviour:
   moveToAttackerCoeff: 50
   player: 2
   facingRight: 0
-  acceleration: 5000
+  acceleration: 3000
   maxSpeed: 15
   maxAirSpeed: 6
-  jumpForce: 800
+  jumpForce: 600
   attackFriction: 1
   grabForce: 800
   grabForceAirMultiple: 1.5
@@ -186,15 +214,14 @@ MonoBehaviour:
     m_Bits: 2048
   flySpeed: 0
   flyDecay: 0
-  spawns:
-  - {fileID: 400000, guid: aa5ca1d2e99769d4980dc21c162313cc, type: 2}
-  - {fileID: 400000, guid: ac28c77c550d2ad4bacac19a24ea4b95, type: 2}
   fastSpeed: 10
-  spawnTimePlayer: 1
-  hover: 0
   attacking: 0
   airborne: 0
   triggerAttackFriction: 0
+  v: 0
+  h: 0
+  hRaw: 0
+  run: 0
   groundFriction: 0
   airFriction: 1
   speedBuffer: .100000001
